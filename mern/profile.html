@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Abhimanyu Tyagi - Profile Card</title>
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Core Colors */
+      --bg-gradient: linear-gradient(135deg, #181C29 0%, #232946 100%);
+      --card-glass: rgba(34, 40, 56, 0.55);
+      --banner-gradient: linear-gradient(90deg, #2563eb 0%, #6813d8 65%, #00e0ff 100%);
+      --accent-blue: #2563eb;
+      --accent-purple: #6813d8;
+      --accent-cyan: #00e0ff;
+      --text-main: #f9fafb;
+      --text-secondary: #d8e1ec;
+      --shadow-strong: 0 8px 32px 0 rgba(24, 28, 41, 0.37);
+      --border-glow: linear-gradient(120deg, #2563eb, #6813d8, #00e0ff, #2563eb);
+      --fab-bg: linear-gradient(135deg, #00e0ff 0%, #6813d8 100%);
+      --skill-bg: rgba(37,99,235, 0.18);
+      --transition: 0.3s cubic-bezier(0.83,0.27,0.37,1.12);
+    }
+    body {
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      transition: background 0.5s;
+    }
+    .profile-container {
+      position: relative;
+      width: 370px;
+      max-width: 95vw;
+      margin: 2.8rem auto;
+      background: var(--card-glass);
+      border-radius: 26px;
+      box-shadow: var(--shadow-strong);
+      backdrop-filter: blur(15px) saturate(140%);
+      border: 2px solid transparent;
+      /* Animated border */
+      background-clip: padding-box, border-box;
+      box-sizing: border-box;
+      overflow: visible;
+      z-index: 2;
+      animation: card-glow 4s ease-in-out infinite alternate;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    /* Animated Glowing Border */
+    .profile-container::before {
+      content: '';
+      position: absolute;
+      z-index: -2;
+      inset: -3px;
+      border-radius: 29px;
+      padding: 0;
+      background: var(--border-glow);
+      filter: blur(6px);
+      opacity: 0.97;
+      animation: borderglow 4.5s linear infinite;
+    }
+    /* Glassy overlay effect */
+    .profile-container::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      border-radius: 26px;
+      background: inherit;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    @keyframes borderglow {
+      0% { filter: blur(6px) brightness(1); }
+      60% { filter: blur(10px) brightness(1.08);}
+      100% { filter: blur(8px) brightness(1.14);}
+    }
+    @keyframes card-glow {
+      0%,100% { box-shadow: 0 8px 32px 0 rgba(24,28,41,0.37);}
+      50% { box-shadow: 0 16px 40px 0 rgba(37, 99, 235, 0.43);}
+    }
+    .profile-container:hover {
+      transform: translateY(-12px) scale(1.025);
+      box-shadow: 0 24px 52px 0 rgba(0,224,255,0.09), 0 10px 24px 0 rgba(37,99,235,0.19);
+    }
+    /* Floating Action Button (FAB) */
+    .fab {
+      position: absolute;
+      top: 22px;
+      right: 28px;
+      z-index: 2;
+      width: 48px;
+      height: 48px;
+      background: var(--fab-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px 0 rgba(104,19,216,0.23);
+      border: none;
+      cursor: pointer;
+      transition: box-shadow var(--transition), transform var(--transition);
+      outline: none;
+    }
+    .fab:hover {
+      box-shadow: 0 8px 24px 0 rgba(0,224,255,0.43),0 1.5px 6px rgba(104,19,216,0.25);
+      transform: scale(1.11) rotate(-9deg);
+    }
+    .fab svg {
+      width: 27px;
+      height: 27px;
+      fill: #fff;
+      /* Slight glow */
+      filter: drop-shadow(0 0 5px #00e0ff66);
+    }
+    /* Banner/cover section */
+    .profile-banner {
+      width: 100%;
+      height: 110px;
+      background: var(--banner-gradient);
+      border-radius: 24px 24px 36px 36px/24px 24px 44px 44px;
+      position: relative;
+      box-shadow: 0 3px 14px 0 rgba(37,99,235,0.09);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+    /* Animated banner accent */
+    .banner-glow-accent {
+      position: absolute;
+      right: -20px; top: -20px;
+      width: 125px; height: 80px;
+      background: radial-gradient(circle at 0 0, #00e0ff33 0%, transparent 80%);
+      pointer-events: none;
+      opacity: 0.5;
+      animation: accent-float 4s infinite alternate;
+      z-index: 1;
+    }
+    @keyframes accent-float {
+      0% { transform: translateY(-8px);}
+      100% { transform: translateY(12px);}
+    }
+    /* Profile Image */
+    .profile-pic-container {
+      position: absolute;
+      left: 50%; top: 78px;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: 104px;
+      height: 104px;
+      border-radius: 999px;
+      border: 5px solid #232946;
+      box-shadow: 0 4px 28px 0 #2563eb44;
+      overflow: hidden;
+      background: linear-gradient(120deg, #6813d8 10%, #00e0ff 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.25s;
+    }
+    .profile-pic-container img {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(0,224,255,0.13);
+      transition: filter 0.3s;
+    }
+    /* Name & Meta */
+    .profile-main {
+      margin-top: 72px;
+      text-align: center;
+      padding: 0 1.35rem 0.6rem 1.35rem;
+      z-index: 2;
+      position: relative;
+    }
+    .profile-name {
+      font-size: 1.46rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      background: linear-gradient(92deg, #fff 60%, #00e0ff 110%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.19em;
+    }
+    .profile-role {
+      font-size: 1.01rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: #9bdfff;
+      margin-bottom: 0.37em;
+    }
+    .profile-univ {
+      font-size: 0.98rem;
+      color: #cfcaf7;
+      margin-bottom: 0.19em;
+    }
+    .profile-bio {
+      color: var(--text-secondary);
+      font-size: 0.99rem;
+      line-height: 1.47;
+      margin-top: 0.3em;
+      margin-bottom: 0.8em;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+    /* Stats */
+    .profile-stats {
+      display: flex;
+      gap: 2rem;
+      margin: 1.1rem 0 0.7rem 0;
+      justify-content: center;
+      align-items: center;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 64px;
+    }
+    .stat-value {
+      font-size: 1.15rem;
+      font-weight: 600;
+      background: linear-gradient(88deg, #00e0ff 45%, #6813d8 90%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.01em;
+    }
+    .stat-label {
+      font-size: 0.80rem;
+      font-weight: 500;
+      color: #b6cae7;
+    }
+    /* Info Grid */
+    .profile-info {
+      width: 86%;
+      margin: 0 auto 0.81em auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.51em 1.51em;
+      background: rgba(36,50,80,0.18);
+      border-radius: 14px;
+      padding: 0.9em 1em 0.6em 1em;
+    }
+    .info-label {
+      font-size: 0.96rem;
+      color: var(--accent-purple);
+      font-weight: 600;
+      letter-spacing: 0.005em;
+    }
+    .info-val {
+      font-size: 0.99rem;
+      color: #f9fafb;
+      font-weight: 400;
+      text-align: right;
+      letter-spacing: 0.01em;
+    }
+    /* Interests */
+    .profile-interests {
+      margin: 0 1.2em 1.15em 1.2em;
+      padding-top: 0.2em;
+      padding-bottom: 0.4em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.47em;
+      justify-content: center;
+    }
+    .interest-chip {
+      background: var(--skill-bg);
+      color: #90e4fa;
+      border-radius: 1em;
+      font-size: 0.89rem;
+      font-weight: 500;
+      padding: 0.32em 1.05em;
+      border: 1.5px solid #2563eb44;
+      backdrop-filter: blur(7px);
+      transition: background 0.25s, color 0.25s;
+      box-shadow: 0 1px 3px 0 rgba(0,224,255,0.07);
+    }
+    .interest-chip:hover {
+      background: linear-gradient(90deg, #2563eb 60%, #00e0ff 100%);
+      color: #fff;
+      border: 1.5px solid #00e0ff33;
+    }
+    /* Socials */
+    .profile-socials {
+      margin: 0.2em 0 1.35em 0;
+      display: flex;
+      gap: 1.16em;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.09);
+      box-shadow: 0 2px 7px 0 #00e0ff14;
+      transition: background 0.21s, transform 0.23s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .social-icon svg {
+      width: 23px;
+      height: 23px;
+      fill: #90e4fa;
+      transition: fill 0.2s;
+      margin: 0;
+    }
+    .social-icon:hover {
+      background: linear-gradient(93deg, #2563eb 55%, #00e0ff 100%);
+      box-shadow: 0 3px 12px 0 #00e0ff36;
+      transform: translateY(-3px) scale(1.09);
+    }
+    .social-icon:hover svg {
+      fill: #fff;
+      filter: drop-shadow(0 0 6px #00e0ff99);
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .profile-container { width: 98vw; min-width: unset; }
+      .profile-main { padding-left: 0.18rem; padding-right: 0.18rem; }
+      .profile-banner { height: 80px; }
+      .profile-pic-container{ top: 55px; width: 78px; height: 78px;}
+      .profile-pic-container img{ width: 70px; height: 70px;}
+      .profile-info{ gap:0.28em 0.7em; font-size:0.92rem;}
+      .profile-stats{ gap: 0.76rem;}
+      .stat-value{ font-size: 1rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <!-- Floating Action Button (e.g. Edit/Contact) -->
+    <button class="fab" title="Contact">
+      <!-- Rocket or Send Icon SVG -->
+      <svg viewBox="0 0 28 28">
+        <path d="M9.1 17.8l10.2-10.2m0 0L12 3.5l-1.8 7.3m9.1-3.2l5-1.7-1.7 5m-10.1 10.4l-7.4 1.8 1.9-7.4M17.3 18.9l7.5-7.5"/>
+      </svg>
+    </button>
+    <!-- Banner -->
+    <div class="profile-banner">
+      <div class="banner-glow-accent"></div>
+    </div>
+    <!-- Profile Picture -->
+    <div class="profile-pic-container">
+      <!-- If you want to swap image, just change src below -->
+      <img src="https://avatars.githubusercontent.com/u/51759124?v=4" alt="Abhimanyu Tyagi Profile Photo" loading="lazy">
+    </div>
+    <!-- Main Content -->
+    <div class="profile-main">
+      <div class="profile-name">Abhimanyu Tyagi</div>
+      <div class="profile-role">CSE (AI &amp; ML) Student | Aspiring AI Engineer</div>
+      <div class="profile-univ">Parul University, Gujarat</div>
+      <div class="profile-bio">
+        Passionate AI &amp; ML student focused on building intelligent systems, mastering technology, and constantly pushing personal limits.
+      </div>
+      <!-- Stats -->
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-value">15+</span>
+          <span class="stat-label">Skills<br>Learning</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">10+</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">50+</span>
+          <span class="stat-label">Goals<br>Achieved</span>
+        </div>
+      </div>
+    </div>
+    <!-- Personal Info -->
+    <div class="profile-info">
+      <span class="info-label">Age:</span>
+      <span class="info-val">21</span>
+      <span class="info-label">Height:</span>
+      <span class="info-val">182 cm</span>
+    </div>
+    <!-- Interests -->
+    <div class="profile-interests">
+      <span class="interest-chip">Artificial Intelligence</span>
+      <span class="interest-chip">Web Development</span>
+      <span class="interest-chip">Fitness &amp; Gym</span>
+      <span class="interest-chip">Running</span>
+      <span class="interest-chip">Technology</span>
+      <span class="interest-chip">Personal Growth</span>
+    </div>
+    <!-- Socials -->
+    <div class="profile-socials">
+      <a href="https://github.com/abhimanyu-Tyagi" class="social-icon" target="_blank" title="GitHub">
+        <!-- GitHub SVG -->
+        <svg viewBox="0 0 24 24"><path d="M12.02 2.2c-5.51 0-9.98 4.47-9.98 9.98 0 4.41 2.88 8.14 6.87 9.47.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.8.61-3.39-1.19-3.39-1.19-.45-1.14-1.11-1.44-1.11-1.44-.91-.62.07-.61.07-.61 1.01.07 1.54 1.04 1.54 1.04.89 1.54 2.34 1.1 2.91.84.09-.64.35-1.1.63-1.35-2.24-.25-4.59-1.12-4.59-4.96 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.26.1-2.63 0 0 .84-.27 2.75 1.03a9.44 9.44 0 012.5-.34 9.41 9.41 0 012.5.34c1.91-1.3 2.75-1.03 2.75-1.03.55 1.37.21 2.38.1 2.63.65.7 1.03 1.59 1.03 2.68 0 3.85-2.35 4.7-4.59 4.96.36.31.68.93.68 1.89 0 1.36-.01 2.46-.01 2.8 0 .27.18.59.69.49A10 10 0 0022 12.18c0-5.51-4.47-9.98-9.98-9.98z"></path></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/abhimanyu-tyagi-834558200/" class="social-icon" target="_blank" title="LinkedIn">
+        <!-- LinkedIn SVG -->
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.451h-3.554V14.82c0-1.343-.021-3.073-1.877-3.073-1.879 0-2.167 1.466-2.167 2.983v5.721H9.294V9h3.414v1.561h.049c.476-.897 1.635-1.846 3.368-1.846 3.601 0 4.265 2.368 4.265 5.455v6.281zM5.337 7.433C4.19 7.433 3.23 6.471 3.23 5.326 3.23 4.182 4.19 3.22 5.337 3.22s2.107.962 2.107 2.106- .96 2.107-2.107 2.107zM6.988 20.451H3.688V9h3.3v11.451z"></path></svg>
+      </a>
+      <a href="https://www.instagram.com/abhimanyu.tyagi/" class="social-icon" target="_blank" title="Instagram">
+        <!-- Instagram SVG -->
+        <svg viewBox="0 0 24 24"><path d="M12.004 7.595a4.405 4.405 0 104.405 4.405 4.408 4.408 0 00-4.405-4.405zm0 7.264a2.859 2.859 0 112.859-2.859 2.861 2.861 0 01-2.859 2.859zm6.006-7.437a1.028 1.028 0 11-1.028-1.028 1.029 1.029 0 011.028 1.028zm2.926 1.044a6.484 6.484 0 00-1.77-4.587A6.488 6.488 0 0016.583 2.27c-1.811-.128-7.244-.128-9.054 0a6.489 6.489 0 00-4.586 1.77A6.485 6.485 0 002.271 7.44c-.128 1.81-.128 7.245 0 9.055a6.491 6.491 0 001.77 4.586 6.489 6.489 0 004.585 1.77c1.811.128 7.244.128 9.055 0a6.482 6.482 0 004.586-1.77 6.484 6.484 0 001.77-4.586c.128-1.81.128-7.245 0-9.055zm-2.14 10.943a4.011 4.011 0 01-2.258 2.258c-1.566.621-5.288.478-7.538.478s-5.973.138-7.538-.478a4.012 4.012 0 01-2.258-2.258c-.621-1.566-.478-5.288-.478-7.538s-.138-5.973.478-7.538A4.01 4.01 0 014.928 2.27c1.566-.621 5.29-.478 7.538-.478s5.973-.138 7.538.478a4.011 4.011 0 012.258 2.258c.621 1.566.478 5.288.478 7.538s.138 5.973-.478 7.538z"></path></svg>
+      </a>
+      <a href="https://twitter.com/abhi_tyagi18" class="social-icon" target="_blank" title="X (Twitter)">
+        <!-- X(Twitter) SVG -->
+        <svg viewBox="0 0 24 24"><path d="M17.713 3h3.316l-7.228 8.236L21.5 21.34h-6.634l-5.358-7.5-6.491-10.84h6.7l4.057 5.85zM12.62 13.142l4.535 6.377h2.17L13.788 13.14l-1.168-.002zm-2.365-3.292L3.569 4.658h-2.14l5.843 9.468 2.983-4.276zm2.39-7.35l-2.505 3.765L9.285 1.5h2.36zm2.424 10.644l6.278 9.047h-2.145l-4.143-6.016-1.993-3.113.003-.004z"></path></svg>
+      </a>
+    </div>
+  </div>
+  <!-- Accessibility: extra tab index for keyboard nav -->
+  <span tabindex="0"></span>
+</body>
+</html>
